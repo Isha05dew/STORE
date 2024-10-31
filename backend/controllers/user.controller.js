@@ -138,6 +138,7 @@ const updateCurrentUserProfile = asyncHandler(async (req, res) => {
     throw new ApiError(404, "User Not found");
   }
   user.username = req.body.username || user.username;
+  user.fullName = req.body.fullName || user.fullName;
   user.email = req.body.email || user.email;
 
   if (req.body.password) {
