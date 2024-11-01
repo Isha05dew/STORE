@@ -114,7 +114,7 @@ const getAllUsers = asyncHandler(async (req, res) => {
 
   res
     .status(200)
-    .json(new ApiResponse(200, users, "All users get successfully"));
+    .json(users);
 });
 
 const getCurrentUserProfile = asyncHandler(async (req, res) => {
