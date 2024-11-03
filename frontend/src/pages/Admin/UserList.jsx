@@ -35,7 +35,7 @@ const UserList = () => {
         }
     }
 
-    const toogleEdit = (id, username, fullName, email) => {
+    const toggleEdit = (id, username, fullName, email) => {
         setEditableUserId(id)
         setEditableUserName(username)
         setEditableFullName(fullName)
@@ -75,7 +75,8 @@ const UserList = () => {
                             <thead>
                                 <tr>
                                     <th className="px-4 py-2 text-left">ID</th>
-                                    <th className="px-4 py-2 text-left">NAME</th>
+                                    <th className="px-4 py-2 text-left">USERNAME</th>
+                                    <th className="px-4 py-2 text-left">FULLNAME</th>
                                     <th className="px-4 py-2 text-left">EMAIL</th>
                                     <th className="px-4 py-2 text-left">ADMIN</th>
                                     <th className="px-4 py-2 text-left"></th>
@@ -96,6 +97,23 @@ const UserList = () => {
                                             ) : (
                                                 <div className="flex items-center">
                                                     {user.username} {" "}
+                                                    <button onClick={() => toggleEdit(user._id, user.username, user.fullName, user.email)}>
+                                                        <FaEdit className="ml-[1rem]" />
+                                                    </button>
+                                                </div>
+                                            )}
+                                        </td>
+                                        <td className="px-4 py-2">
+                                            {editableUserId === user._id ? (
+                                                <div className="flex items-center">
+                                                    <input type="text" value={editableUserFullName} onChange={e => setEditableUserFullName(e.target.value)} className="w-full p-2 border rounded-lg" />
+                                                    <button onClick={() => updateHandler(user._id)} className="ml-2 bg-blue-500 text-white py-2 px-4 rounded-lg">
+                                                        <FaCheck />
+                                                    </button>
+                                                </div>
+                                            ) : (
+                                                <div className="flex items-center">
+                                                    {user.fullName} {" "}
                                                     <button onClick={() => toggleEdit(user._id, user.username, user.fullName, user.email)}>
                                                         <FaEdit className="ml-[1rem]" />
                                                     </button>
