@@ -8,9 +8,9 @@ import {
     listCategory,
     readCategory,
 } from '../controllers/category.controller.js'
-import {authenticate, authorizeAdmin} from "../middlewares/authMiddleware.js"
+import { authenticate, authorizeAdmin } from "../middlewares/authMiddleware.js"
 
-router.route('/').post(authenticate,authorizeAdmin, createCategory)
+router.route('/').post(authenticate, authorizeAdmin, createCategory)
 router.route('/:categoryId').put(authenticate, authorizeAdmin, updateCategory)
 router.route('/:categoryId').delete(authenticate, authorizeAdmin, removeCategory)
 router.route('/categories').get(listCategory)
