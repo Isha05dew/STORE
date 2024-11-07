@@ -6,8 +6,10 @@ import cookieParser from 'cookie-parser'
 
 // Utiles
 import ConnetDB from './config/db.js'
-import userRoutes from './routers/user.router.js'
-import categoryRoutes from './routers/CategoryRoutes.js'
+import userRoutes from './routers/user.Routes.js'
+import categoryRoutes from './routers/category.Routes.js'
+import productRoutes from './routers/product.Routes.js'
+import uploadRoutes from './routers/upload.Routes.js'
 
 dotenv.config();
 const port = process.env.PORT || 5000;
@@ -26,5 +28,10 @@ app.use(cookieParser())
 
 app.use("/api/users", userRoutes);
 app.use("/api/category", categoryRoutes);
+app.use("/api/products", productRoutes);
+app.use("/api/upload", uploadRoutes);
+
+const __dirname = path.resolve()
+app.use('/uploads', express.static(path.join(__dirname + '/uploads')))
 
 app.listen(port, () => console.log(`Server running on port: ${port}`));
