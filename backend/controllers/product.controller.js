@@ -1,6 +1,6 @@
 import asyncHandler from "../middlewares/asyncHandler.js";
 import Product from "../models/product.model.js";
-import { ApiResponse } from "../utils/ApiResponse.js";
+// import { ApiResponse } from "../utils/ApiResponse.js";
 
 const addProduct = asyncHandler(async (req, res) => {
     try {
@@ -24,11 +24,12 @@ const addProduct = asyncHandler(async (req, res) => {
 
         const product = new Product({ ...req.fields })
         await product.save()
-        res
-            .status(200)
-            .json(
-                new ApiResponse(200, product, "Product created successfully.")
-            )
+        // res
+        //     .status(200)
+        //     .json(
+        //         new ApiResponse(200, product, "Product created successfully.")
+        //     )
+        res.json(product)
 
     } catch (error) {
         console.error(error);
@@ -64,10 +65,11 @@ const updateProductDetails = asyncHandler(async (req, res) => {
 
         await product.save();
 
-        res.status(200)
-            .json(
-                new ApiResponse(200, product, "Product updated successfully")
-            )
+        // res.status(200)
+        //     .json(
+        //         new ApiResponse(200, product, "Product updated successfully")
+        //     )
+        res.json(product)
 
     } catch (error) {
         console.error(error)
@@ -78,11 +80,12 @@ const updateProductDetails = asyncHandler(async (req, res) => {
 const removeProduct = asyncHandler(async (req, res) => {
     try {
         const product = await Product.findByIdAndDelete(req.params.id);
-        res
-            .status(200)
-            .json(
-                new ApiResponse(200, product, "Produxt deleted successfully")
-            )
+        // res
+        //     .status(200)
+        //     .json(
+        //         new ApiResponse(200, product, "Produxt deleted successfully")
+        //     )
+        res.json(product)
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: "Server error" });
