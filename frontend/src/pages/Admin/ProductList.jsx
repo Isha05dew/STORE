@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import {
   useCreateProductMutation,
   useUploadProductImageMutation,
-} from "../../redux/api/productApiSlice.js";
+} from "../../redux/api/productsApiSlice.js";
 import { useFetchCategoriesQuery } from "../../redux/api/categoriesApiSlice.js";
 import { toast } from "react-toastify";
 import AdminMenu from "./AdminMenu.jsx";
@@ -38,17 +38,32 @@ const ProductList = () => {
       productData.append("quantity", quantity);
       productData.append("brand", brand);
       productData.append("countInStock", stock);
+      console.log(stock);
+      
+
+      // console.log("All correct before");
 
       const {data} = await createProduct(productData)
+
+      // console.log("All correct After too");
+
+      if (data) {
+        console.log(data);
+      } else {
+        console.log("data can't fetched.");
+      }
+
       if (data.error) {
-        toast.error("Product create failed. Try Again")
+        toast.error("Some error occured. Try Again")
+        console.log(data.error);
+        
       } else {
         toast.success(`${data.name} is created`)
         navigate('/')
       }
 
     } catch (error) {
-      console.error(error);
+      console.log(error);
       toast.error("Product create failed. Try Again.");
     }
   };
@@ -167,6 +182,7 @@ const ProductList = () => {
                 <select
                   placeholder="Choose Category"
                   className="p-4 mb-3 w-[30rem] border rounded-lg bg-[#101011] text-white"
+                  // value={category}
                   onChange={(e) => setCategory(e.target.value)}
                 >
                   {categories?.map((c) => (

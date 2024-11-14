@@ -4,7 +4,7 @@ import Product from "../models/product.model.js";
 
 const addProduct = asyncHandler(async (req, res) => {
     try {
-        const { name, description, price, category, quantity, brand } = req.fields;
+        const { name, description, price, category, quantity, brand, countInStock } = req.fields;
 
         // Validation
         switch (true) {
@@ -20,6 +20,8 @@ const addProduct = asyncHandler(async (req, res) => {
                 return res.json({ error: "Quantity is required" })
             case !brand:
                 return res.json({ error: "Brand is required" })
+            case !countInStock:
+                return res.json({ error: "Stock is required" })
         }
 
         const product = new Product({ ...req.fields })
@@ -39,7 +41,7 @@ const addProduct = asyncHandler(async (req, res) => {
 
 const updateProductDetails = asyncHandler(async (req, res) => {
     try {
-        const { name, description, price, category, quantity, brand } = req.fields;
+        const { name, description, price, category, quantity, brand, countInStock } = req.fields;
 
         // Validation
         switch (true) {
@@ -55,6 +57,8 @@ const updateProductDetails = asyncHandler(async (req, res) => {
                 return res.json({ error: "Quantity is required" })
             case !brand:
                 return res.json({ error: "Brand is required" })
+            case !countInStock:
+                return res.json({ error: "Stock is required" })
         }
 
         const product = await Product.findByIdAndUpdate(
@@ -184,9 +188,9 @@ const addProductReview = asyncHandler(async (req, res) => {
     }
 })
 
-const fetchTopProducts = asyncHandler(async(req, res) => {
+const fetchTopProducts = asyncHandler(async (req, res) => {
     try {
-        const products = await Product.find({}).sort({ rating: -1}).limit(4);
+        const products = await Product.find({}).sort({ rating: -1 }).limit(4);
         res.json(products)
     } catch (error) {
         console.error(error)
@@ -196,7 +200,7 @@ const fetchTopProducts = asyncHandler(async(req, res) => {
 
 const fetchNewProducts = asyncHandler(async (req, res) => {
     try {
-        const products = await Product.find().sort({_id: -1}).limit(5);
+        const products = await Product.find().sort({ _id: -1 }).limit(5);
         res.json(products)
     } catch (error) {
         console.error(error)

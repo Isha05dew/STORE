@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import moment from "moment";
-import { useAllProductsQuery } from "../../redux/api/productApiSlice";
+import { useAllProductsQuery } from "../../redux/api/productsApiSlice.js";
 import AdminMenu from "./AdminMenu";
 import Loader from "../../components/Loader";
 
