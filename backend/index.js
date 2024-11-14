@@ -6,10 +6,10 @@ import cookieParser from 'cookie-parser'
 
 // Utiles
 import ConnetDB from './config/db.js'
-import userRoutes from './routers/user.Routes.js'
-import categoryRoutes from './routers/category.Routes.js'
-import productRoutes from './routers/product.Routes.js'
-import uploadRoutes from './routers/upload.Routes.js'
+import userRoutes from './routers/user.routes.js'
+import categoryRoutes from './routers/category.routes.js'
+import productRoutes from './routers/product.routes.js'
+import uploadRoutes from './routers/upload.routes.js'
 
 dotenv.config();
 const port = process.env.PORT || 5000;
