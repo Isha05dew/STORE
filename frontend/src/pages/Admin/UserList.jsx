@@ -62,7 +62,7 @@ const UserList = () => {
 
     return (
         <div className="p-4">
-            <h1 className="text-2xl font-semibold mb-4">UsersUsersUsersUsersUsers</h1>
+            {/* <h1 className="text-2xl font-semibold mb-4 ml-[100px]">UsersList</h1> */}
             {isLoading ? (<Loader />) : error
                 ? (
                     <Message variant='danger'>
