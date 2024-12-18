@@ -27,6 +27,9 @@ const createUser = asyncHandler(async (req, res) => {
     email,
     password: hashedPassword,
   });
+  if (!newUser) {
+    throw new ApiError(500, "Something went wrong while creating user");
+  }
 
   try {
     await newUser.save();
@@ -69,32 +72,35 @@ const loginUser = asyncHandler(async (req, res) => {
   }
 
   const existingUser = await User.findOne({ email });
-
-  if (existingUser) {
-    const isPasswordValid = await bcrypt.compare(
-      password,
-      existingUser.password
-    );
-
-    if (isPasswordValid) {
-      createToken(res, existingUser._id);
-
-      res.status(201).json(
-        new ApiResponse(
-          201,
-          {
-            _id: existingUser._id,
-            fullName: existingUser.fullName,
-            username: existingUser.username,
-            email: existingUser.email,
-            isAdmin: existingUser.isAdmin,
-          },
-          "User Logged In Successfully"
-        )
-      );
-      return;
-    }
+  if (!existingUser) {
+    throw new ApiError(400, "User not found");
   }
+
+  // if (existingUser) {
+  const isPasswordValid = await bcrypt.compare(password, existingUser.password);
+  if (!isPasswordValid) {
+    throw new ApiError(400, "Entered password not match.");
+  }
+
+  // if (isPasswordValid) {
+  createToken(res, existingUser._id);
+
+  res.status(201).json(
+    new ApiResponse(
+      201,
+      {
+        _id: existingUser._id,
+        fullName: existingUser.fullName,
+        username: existingUser.username,
+        email: existingUser.email,
+        isAdmin: existingUser.isAdmin,
+      },
+      "User Logged In Successfully"
+    )
+  );
+  return;
+  // }
+  // }
 });
 
 const logoutCurrentUser = asyncHandler(async (req, res) => {
@@ -112,9 +118,7 @@ const getAllUsers = asyncHandler(async (req, res) => {
     throw new ApiError(500, "Something went wrong while fetching the users");
   }
 
-  res
-    .status(200)
-    .json(users);
+  res.status(200).json(users);
 });
 
 const getCurrentUserProfile = asyncHandler(async (req, res) => {
