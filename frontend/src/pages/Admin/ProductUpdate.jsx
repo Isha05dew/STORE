@@ -17,7 +17,7 @@ const ProductUpdate = () => {
   if (productData) {
     console.log("productData fetched");
     console.log(productData.category);
-    console.log(productData);
+    // console.log(productData);
     // console.log(productData.countInStock);
     // console.log(productData.brand);
   } else {
@@ -125,6 +125,7 @@ const ProductUpdate = () => {
       toast.error("Delete failed. Try again.");
     }
   };
+  
 
   return (
     <>

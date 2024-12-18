@@ -14,6 +14,8 @@ const Login = () => {
     const navigate = useNavigate()
 
     const [login, { isLoading }] = useLoginMutation()
+    console.log(isLoading);
+    
 
     const { userInfo } = useSelector((state) => state.auth)
 
@@ -39,6 +41,7 @@ const Login = () => {
             toast.error(err?.data?.message || err.message)
         }
     }
+    
 
     return (
         <div>
