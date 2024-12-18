@@ -26,7 +26,8 @@
     "mongoose": "^8.7.0",
     "multer": "^1.4.5-lts.1",
     "nodemon": "^3.1.7",
-    "reactjs": "^1.0.0"
+    "reactjs": "^1.0.0",
+    "vue-toastification": "^1.7.14"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.20",
